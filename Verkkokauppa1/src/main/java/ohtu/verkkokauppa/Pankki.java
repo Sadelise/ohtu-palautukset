@@ -1,22 +1,14 @@
 package ohtu.verkkokauppa;
 
 import ohtu.verkkokauppa.interfaces.Rahalaitos;
+import ohtu.verkkokauppa.interfaces.TapahtumaLogi;
 
 public class Pankki implements Rahalaitos {
 
-    private static Pankki instanssi;
+    private TapahtumaLogi kirjanpito;
 
-    public static Pankki getInstance() {
-        if (instanssi == null) {
-            instanssi = new Pankki();
-        }
-
-        return instanssi;
-    }
-    private Kirjanpito kirjanpito;
-
-    public Pankki() {
-        kirjanpito = Kirjanpito.getInstance();
+    public Pankki(TapahtumaLogi kirjanpito) {
+        this.kirjanpito = kirjanpito;
     }
 
     @Override

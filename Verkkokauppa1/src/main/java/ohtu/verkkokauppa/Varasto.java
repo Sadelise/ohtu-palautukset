@@ -2,24 +2,15 @@ package ohtu.verkkokauppa;
 
 import ohtu.verkkokauppa.interfaces.TuoteVarasto;
 import java.util.*;
+import ohtu.verkkokauppa.interfaces.TapahtumaLogi;
 
 public class Varasto implements TuoteVarasto {
-
-    private static Varasto instanssi;
-
-    public static Varasto getInstance() {
-        if (instanssi == null) {
-            instanssi = new Varasto();
-        }
-
-        return instanssi;
-    }
     
-    private Kirjanpito kirjanpito;
+    private TapahtumaLogi kirjanpito;
     private HashMap<Tuote, Integer> saldot;  
     
-    private Varasto() {
-        kirjanpito = Kirjanpito.getInstance();
+    public Varasto(TapahtumaLogi kirjanpito) {
+        this.kirjanpito = kirjanpito;
         saldot = new HashMap<Tuote, Integer>();
         alustaTuotteet();
     }
