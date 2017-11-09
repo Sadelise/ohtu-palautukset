@@ -2,11 +2,15 @@ package ohtu.verkkokauppa;
 
 import ohtu.verkkokauppa.interfaces.Rahalaitos;
 import ohtu.verkkokauppa.interfaces.TapahtumaLogi;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Pankki implements Rahalaitos {
 
     private TapahtumaLogi kirjanpito;
 
+    @Autowired
     public Pankki(TapahtumaLogi kirjanpito) {
         this.kirjanpito = kirjanpito;
     }
