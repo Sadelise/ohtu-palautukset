@@ -14,26 +14,37 @@ public class Main {
             studentNr = args[0];
         }
 
-        String url = "https://studies.cs.helsinki.fi/ohtustats/students/" + studentNr + "/submissions";
+        String subUrl = "https://studies.cs.helsinki.fi/ohtustats/students/" + studentNr + "/submissions";
+        String courseUrl = "https://studies.cs.helsinki.fi/ohtustats/courseinfo";
 
-        String bodyText = Request.Get(url).execute().returnContent().asString();
+        String subsBodyText = Request.Get(subUrl).execute().returnContent().asString();
+        String courseBodyText = Request.Get(courseUrl).execute().returnContent().asString();
 
         System.out.println("json-muotoinen data:");
-        System.out.println(bodyText);
-
-        
+        System.out.println(subsBodyText);
+        System.out.println("json-muotoinen kurssidata:");
+        System.out.println(courseBodyText);
         Gson mapper = new Gson();
-        Submission[] subs = mapper.fromJson(bodyText, Submission[].class);
+        Submission[] subs = mapper.fromJson(subsBodyText, Submission[].class);
+        Course course = mapper.fromJson(courseBodyText, Course.class);
 
-        System.out.println("Oliot:");
+        printSubmissions(subs, course, studentNr);
+
+    }
+
+    private static void printSubmissions(Submission[] subs, Course course, String studentNr) {
+        System.out.println();
+        System.out.println("Kurssi: " + course.getName() + ", " + course.getTerm());
+        System.out.println();
+        System.out.println("opiskelijanumero: " + studentNr);
+        System.out.println();
         for (Submission submission : subs) {
-            System.out.print("Viikko "+submission.getWeek()+": ");
+            System.out.print("Viikko " + submission.getWeek() + ": ");
             System.out.print("tehtyjä tehtäviä yhteensä: " + submission.getExercises().length);
             System.out.print(", aikaa kului " + submission.getHours() + " tuntia, ");
             String tehtavat = Arrays.toString(submission.getExercises()).replace("]", "").replace("[", "");
             System.out.print("tehdyt tehtävät: " + tehtavat);
             System.out.println();
         }
-
     }
 }
