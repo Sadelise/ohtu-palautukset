@@ -6,6 +6,7 @@ public class Course {
     private String name;
     private String term;
     private String url;
+    private int[] exercises;
 
     public Course(String id, String name, String term, String url) {
         this.id = id;
@@ -44,6 +45,14 @@ public class Course {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public int[] getExercises() {
+        return exercises;
+    }
+
+    public void setExcercises(int[] exercises) {
+        this.exercises = exercises;
     }
 
     @Override

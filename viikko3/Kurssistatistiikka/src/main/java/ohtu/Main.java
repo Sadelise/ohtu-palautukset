@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         // vaihda oma opiskelijanumerosi seuraavaan, ÄLÄ kuitenkaan laita githubiin omaa opiskelijanumeroasi
-        String studentNr = "";
+        String studentNr = "";//011120775
         if (args.length > 0) {
             studentNr = args[0];
         }
@@ -24,27 +24,33 @@ public class Main {
         System.out.println(subsBodyText);
         System.out.println("json-muotoinen kurssidata:");
         System.out.println(courseBodyText);
+
         Gson mapper = new Gson();
         Submission[] subs = mapper.fromJson(subsBodyText, Submission[].class);
+        System.out.println();
         Course course = mapper.fromJson(courseBodyText, Course.class);
-
-        printSubmissions(subs, course, studentNr);
+        int[] exercises = course.getExercises();
+        System.out.println("exe " + Arrays.toString(exercises));
+        printSubmissions(subs, course, studentNr, exercises);
 
     }
 
-    private static void printSubmissions(Submission[] subs, Course course, String studentNr) {
+    private static void printSubmissions(Submission[] subs, Course course, String studentNr, int[] exercises) {
         System.out.println();
         System.out.println("Kurssi: " + course.getName() + ", " + course.getTerm());
         System.out.println();
         System.out.println("opiskelijanumero: " + studentNr);
         System.out.println();
+        int i = 0;
         for (Submission submission : subs) {
             System.out.print("Viikko " + submission.getWeek() + ": ");
             System.out.print("tehtyjä tehtäviä yhteensä: " + submission.getExercises().length);
-            System.out.print(", aikaa kului " + submission.getHours() + " tuntia, ");
+            System.out.print(" (maksimi " + exercises[i] + "), ");
+            System.out.print("aikaa kului " + submission.getHours() + " tuntia, ");
             String tehtavat = Arrays.toString(submission.getExercises()).replace("]", "").replace("[", "");
             System.out.print("tehdyt tehtävät: " + tehtavat);
             System.out.println();
+            i++;
         }
     }
 }
