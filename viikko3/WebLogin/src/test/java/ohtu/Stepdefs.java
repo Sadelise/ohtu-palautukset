@@ -106,12 +106,6 @@ public class Stepdefs {
         pageHasContent("Ohtu Application main page");
     }
 
-//    @And("^login is selected$")
-//    public void and_login_is_selected() throws Throwable {
-//        driver.get(baseUrl);
-//        WebElement element = driver.findElement(By.linkText("login"));
-//        element.click();
-//    }
     @Then("^user is not logged in and error message is given$")
     public void user_is_not_logged_in_and_error_message_is_given() throws Throwable {
         pageHasContent("invalid username or password");
