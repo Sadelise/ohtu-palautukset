@@ -1,6 +1,7 @@
 package ohtu;
 
 import cucumber.api.java.After;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -27,6 +28,22 @@ public class Stepdefs {
         driver.get(baseUrl);
         WebElement element = driver.findElement(By.linkText("register new user"));
         element.click();
+    }
+
+    @Given("^user with username \"([^\"]*)\" with password \"([^\"]*)\" is successfully created$")
+    public void user_created(String username, String password) throws Throwable {
+        driver.get(baseUrl);
+        WebElement element = driver.findElement(By.linkText("register new user"));
+        element.click();
+        signupWith(username, password, password);
+    }
+
+    @Given("^user with username \"([^\"]*)\" and password \"([^\"]*)\" is tried to be created$")
+    public void user_tried_to_be_created(String username, String password) throws Throwable {
+        driver.get(baseUrl);
+        WebElement element = driver.findElement(By.linkText("register new user"));
+        element.click();
+        signupWith(username, password, password);
     }
 
     @When("^username \"([^\"]*)\" and password \"([^\"]*)\" are given$")
@@ -89,6 +106,12 @@ public class Stepdefs {
         pageHasContent("Ohtu Application main page");
     }
 
+//    @And("^login is selected$")
+//    public void and_login_is_selected() throws Throwable {
+//        driver.get(baseUrl);
+//        WebElement element = driver.findElement(By.linkText("login"));
+//        element.click();
+//    }
     @Then("^user is not logged in and error message is given$")
     public void user_is_not_logged_in_and_error_message_is_given() throws Throwable {
         pageHasContent("invalid username or password");
