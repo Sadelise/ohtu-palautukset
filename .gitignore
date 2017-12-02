@@ -2,4 +2,4 @@
 build/
 *.tmp
 gradle.properties
-.nb-gradle/
+*/.nb-gradle/
