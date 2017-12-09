@@ -3,3 +3,4 @@ build/
 *.tmp
 gradle.properties
 */.nb-gradle/
+/viikko6/Laskin/.nb-gradle/
