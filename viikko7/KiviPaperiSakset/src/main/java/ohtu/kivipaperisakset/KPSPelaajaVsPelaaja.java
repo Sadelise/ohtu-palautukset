@@ -2,36 +2,32 @@ package ohtu.kivipaperisakset;
 
 import java.util.Scanner;
 
-public class KPSPelaajaVsPelaaja {
+public class KPSPelaajaVsPelaaja extends KPS {
 
     private static final Scanner scanner = new Scanner(System.in);
 
-    public void pelaa() {
-        Tuomari tuomari = new Tuomari();
+    private KPSPelaajaVsPelaaja() {
+    }
 
-        System.out.print("Ensimmäisen pelaajan siirto: ");
-        String ekanSiirto = scanner.nextLine();
-        System.out.print("Toisen pelaajan siirto: ");
+    public static KPSPelaajaVsPelaaja luoKaksinpeli() {
+        return new KPSPelaajaVsPelaaja();
+    }
+
+    @Override
+    void setTekoaly() {
+        // ei tee mitään
+    }
+
+    @Override
+    String toisenSiirto() {
+        System.out.println("Toisen pelaajan siirto: ");
         String tokanSiirto = scanner.nextLine();
-
-        while (onkoOkSiirto(ekanSiirto) && onkoOkSiirto(tokanSiirto)) {
-            tuomari.kirjaaSiirto(ekanSiirto, tokanSiirto);
-            System.out.println(tuomari);
-            System.out.println();
-
-            System.out.print("Ensimmäisen pelaajan siirto: ");
-            ekanSiirto = scanner.nextLine();
-            
-            System.out.print("Toisen pelaajan siirto: ");
-            tokanSiirto = scanner.nextLine();
-        }
-
-        System.out.println();
-        System.out.println("Kiitos!");
-        System.out.println(tuomari);
+        return tokanSiirto;
     }
 
-    private static boolean onkoOkSiirto(String siirto) {
-        return "k".equals(siirto) || "p".equals(siirto) || "s".equals(siirto);
+    @Override
+    void tekoalyAsetaSiirto(String ekanSiirto) {
+        // ei tee mitään
     }
+
 }
